@@ -16,9 +16,9 @@ If you use Maven, you can do the following in order to depend on Google Play Ser
 a library project:
 
  1. Copy the `gms-mvn-install.sh` script into the `google-play-services_lib/` folder inside of your SDK.
- 2. Execute `bash gms-mvn-install.sh` which will install the project into your local Maven repository.
+ 2. Execute `./gms-mvn-install.sh` which will install the project into your local Maven repository.
     If you want to deploy the artifacts to a remote repository then execute
-    `bash gms-mvn-install.sh repo-name repo-url`.
+    `./gms-mvn-install.sh repo-name repo-url`.
 
 Once completed you can depend on this library project with the following dependency declaration:
 
