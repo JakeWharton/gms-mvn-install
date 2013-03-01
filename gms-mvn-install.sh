@@ -59,18 +59,17 @@ cat > pom.xml <<EOF
 </project>
 EOF
 
-if [ -z "$REPO_ID" ]; then
-	# install locally
+# install locally
 
-	mvn org.apache.maven.plugins:maven-install-plugin:2.4:install-file \
-	  -DgroupId=com.google.android.gms \
-	  -DartifactId=google-play-services-jar \
-	  -Dversion=5 \
-	  -Dpackaging=jar \
-	  -Dfile=libs/google-play-services.jar
+mvn org.apache.maven.plugins:maven-install-plugin:2.4:install-file \
+	-DgroupId=com.google.android.gms \
+	-DartifactId=google-play-services-jar \
+	-Dversion=5 \
+	-Dpackaging=jar \
+	-Dfile=libs/google-play-services.jar
 
-	mvn clean install
-else
+mvn clean install
+if [ ! -z "$REPO_ID" ]; then
 	# deploy to remote
 
 	mvn org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy-file \
