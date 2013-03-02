@@ -60,7 +60,6 @@ cat > pom.xml <<EOF
 EOF
 
 # install locally
-
 mvn org.apache.maven.plugins:maven-install-plugin:2.4:install-file \
 	-DgroupId=com.google.android.gms \
 	-DartifactId=google-play-services-jar \
@@ -69,9 +68,9 @@ mvn org.apache.maven.plugins:maven-install-plugin:2.4:install-file \
 	-Dfile=libs/google-play-services.jar
 
 mvn clean install
-if [ ! -z "$REPO_ID" ]; then
-	# deploy to remote
 
+# if a remote is specified, deploy to it as well
+if [ ! -z "$REPO_ID" ]; then
 	mvn org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy-file \
 	  -DgroupId=com.google.android.gms \
 	  -DartifactId=google-play-services-jar \
