@@ -24,7 +24,7 @@ cat > pom.xml <<EOF
 
   <groupId>com.google.android.gms</groupId>
   <artifactId>google-play-services</artifactId>
-  <version>5</version>
+  <version>6</version>
   <packaging>apklib</packaging>
 
   <dependencies>
@@ -37,7 +37,7 @@ cat > pom.xml <<EOF
     <dependency>
       <groupId>com.google.android.gms</groupId>
       <artifactId>google-play-services-jar</artifactId>
-      <version>5</version>
+      <version>6</version>
     </dependency>
   </dependencies>
 
@@ -72,7 +72,7 @@ EOF
 mvn org.apache.maven.plugins:maven-install-plugin:2.4:install-file \
   -DgroupId=com.google.android.gms \
   -DartifactId=google-play-services-jar \
-  -Dversion=5 \
+  -Dversion=6 \
   -Dpackaging=jar \
   -Dfile=libs/google-play-services.jar
 
@@ -83,7 +83,7 @@ if [ ! -z "$REPO_ID" ]; then
   mvn org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy-file \
     -DgroupId=com.google.android.gms \
     -DartifactId=google-play-services-jar \
-    -Dversion=5 \
+    -Dversion=6 \
     -Dpackaging=jar \
     -Durl=$REPO_URL \
     -DrepositoryId=$REPO_ID \
