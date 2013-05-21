@@ -26,7 +26,7 @@ Once completed you can depend on this library project with the following depende
 <dependency>
   <groupId>com.google.android.gms</groupId>
   <artifactId>google-play-services</artifactId>
-  <version>5</version>
+  <version>7</version>
   <type>apklib</type>
 </dependency>
 ```
