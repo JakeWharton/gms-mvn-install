@@ -2,14 +2,15 @@
 
 set -e
 
-if [ $# -ne 0 -a $# -ne 2 ]; then
+if [ $# -gt 4 ]; then
   echo "Usage: $0 [version] [repo-id repo-url]"
   echo ""
   echo "Installs Google Play Services to your local Maven repo or deploys it to a"
   echo "remote repo if 'repo-id' and 'repo-url' are specified."
   echo ""
   echo "The version can be specified as either a positive integer or a revison"
-  echo "number in the format 'r[0-9]+'"
+  echo "number in the format 'r[0-9]+'. Defaults to the version as specified in"
+  echo "source.properties."
   echo ""
   exit 1
 fi
@@ -17,8 +18,22 @@ fi
 if echo $1 | egrep -q "^r?[0-9]+$"; then
 	VERSION=$1
 	shift
-else
-	VERSION=7
+elif [ -f source.properties ]; then
+	VERSION=`egrep "^Pkg.Revision=[0-9]+$" source.properties | cut -f 2 -d =`
+fi
+
+if [ -z "$VERSION" ]; then
+  echo "Failed to find a version number, does source.properties exist? If not"
+  echo "you can add one as a parameter."
+  echo ""
+  echo -n "$0 [version]"
+  while [ ! -z $1 ]; do
+    echo -n "" $1
+    shift
+  done
+  echo ""
+  echo ""
+  exit 1
 fi
 
 REPO_ID="$1"
