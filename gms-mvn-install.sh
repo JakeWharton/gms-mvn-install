@@ -2,11 +2,36 @@
 
 set -e
 
-if [ $# -ne 0 -a $# -ne 2 ]; then
-  echo "Usage: $0 [repo-id repo-url]"
+if [ $# -gt 4 ]; then
+  echo "Usage: $0 [version] [repo-id repo-url]"
   echo ""
   echo "Installs Google Play Services to your local Maven repo or deploys it to a"
   echo "remote repo if 'repo-id' and 'repo-url' are specified."
+  echo ""
+  echo "The version can be specified as either a positive integer or a revison"
+  echo "number in the format 'r[0-9]+'. Defaults to the version as specified in"
+  echo "source.properties."
+  echo ""
+  exit 1
+fi
+
+if echo $1 | egrep -q "^r?[0-9]+$"; then
+	VERSION=$1
+	shift
+elif [ -f source.properties ]; then
+	VERSION=`egrep "^Pkg.Revision=[0-9]+$" source.properties | cut -f 2 -d =`
+fi
+
+if [ -z "$VERSION" ]; then
+  echo "Failed to find a version number, does source.properties exist? If not"
+  echo "you can add one as a parameter."
+  echo ""
+  echo -n "$0 [version]"
+  while [ ! -z $1 ]; do
+    echo -n "" $1
+    shift
+  done
+  echo ""
   echo ""
   exit 1
 fi
@@ -24,7 +49,7 @@ cat > pom.xml <<EOF
 
   <groupId>com.google.android.gms</groupId>
   <artifactId>google-play-services</artifactId>
-  <version>7</version>
+  <version>$VERSION</version>
   <packaging>apklib</packaging>
 
   <dependencies>
@@ -37,7 +62,7 @@ cat > pom.xml <<EOF
     <dependency>
       <groupId>com.google.android.gms</groupId>
       <artifactId>google-play-services-jar</artifactId>
-      <version>7</version>
+      <version>$VERSION</version>
     </dependency>
   </dependencies>
 
@@ -80,7 +105,7 @@ cd $DIR_LIBPROJECT
 mvn org.apache.maven.plugins:maven-install-plugin:2.4:install-file \
   -DgroupId=com.google.android.gms \
   -DartifactId=google-play-services-jar \
-  -Dversion=7 \
+  -Dversion=$VERSION \
   -Dpackaging=jar \
   -Dfile=libs/google-play-services.jar \
   -Djavadoc=google-play-services-jar-7-javadoc.jar
@@ -92,7 +117,7 @@ if [ ! -z "$REPO_ID" ]; then
   mvn org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy-file \
     -DgroupId=com.google.android.gms \
     -DartifactId=google-play-services-jar \
-    -Dversion=7 \
+    -Dversion=$VERSION \
     -Dpackaging=jar \
     -Durl=$REPO_URL \
     -DrepositoryId=$REPO_ID \
