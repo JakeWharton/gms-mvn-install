@@ -24,7 +24,7 @@ cat > pom.xml <<EOF
 
   <groupId>com.google.android.gms</groupId>
   <artifactId>google-play-services</artifactId>
-  <version>5</version>
+  <version>7</version>
   <packaging>apklib</packaging>
 
   <dependencies>
@@ -37,7 +37,7 @@ cat > pom.xml <<EOF
     <dependency>
       <groupId>com.google.android.gms</groupId>
       <artifactId>google-play-services-jar</artifactId>
-      <version>5</version>
+      <version>7</version>
     </dependency>
   </dependencies>
 
@@ -68,13 +68,22 @@ cat > pom.xml <<EOF
 </project>
 EOF
 
+# make javadoc
+DIR_LIBPROJECT=`pwd`
+cd libs
+DIR_JAVADOC=`cat $(find . -name 'google-play-services*.properties') | awk -F= '{print $2}'`
+cd $DIR_JAVADOC
+zip -qr $DIR_LIBPROJECT/google-play-services-jar-7-javadoc.jar .
+cd $DIR_LIBPROJECT
+
 # install locally
 mvn org.apache.maven.plugins:maven-install-plugin:2.4:install-file \
   -DgroupId=com.google.android.gms \
   -DartifactId=google-play-services-jar \
-  -Dversion=5 \
+  -Dversion=7 \
   -Dpackaging=jar \
-  -Dfile=libs/google-play-services.jar
+  -Dfile=libs/google-play-services.jar \
+  -Djavadoc=google-play-services-jar-7-javadoc.jar
 
 mvn clean install
 
@@ -83,11 +92,12 @@ if [ ! -z "$REPO_ID" ]; then
   mvn org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy-file \
     -DgroupId=com.google.android.gms \
     -DartifactId=google-play-services-jar \
-    -Dversion=5 \
+    -Dversion=7 \
     -Dpackaging=jar \
     -Durl=$REPO_URL \
     -DrepositoryId=$REPO_ID \
-    -Dfile=libs/google-play-services.jar
+    -Dfile=libs/google-play-services.jar \
+    -Djavadoc=google-play-services-jar-7-javadoc.jar
 
   mvn clean deploy -DaltDeploymentRepository=$REPO_ID::default::$REPO_URL
 fi
