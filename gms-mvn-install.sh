@@ -77,7 +77,7 @@ cat > pom.xml <<EOF
         <extensions>true</extensions>
         <configuration>
           <sdk>
-          <platform>16</platform>
+            <platform>16</platform>
           </sdk>
           <nativeLibrariesDirectory>ignored</nativeLibrariesDirectory>
         </configuration>
