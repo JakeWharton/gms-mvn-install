@@ -73,9 +73,12 @@ cat > pom.xml <<EOF
       <plugin>
         <groupId>com.jayway.maven.plugins.android.generation2</groupId>
         <artifactId>android-maven-plugin</artifactId>
-        <version>3.5.1</version>
+        <version>3.6.0</version>
         <extensions>true</extensions>
         <configuration>
+          <sdk>
+          <platform>16</platform>
+          </sdk>
           <nativeLibrariesDirectory>ignored</nativeLibrariesDirectory>
         </configuration>
       </plugin>
