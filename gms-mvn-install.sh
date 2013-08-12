@@ -97,12 +97,12 @@ cat > pom.xml <<EOF
 EOF
 
 # make javadoc
-DIR_LIBPROJECT=`pwd`
+DIR_LIBPROJECT="$(pwd)"
 cd libs
-DIR_JAVADOC=`cat $(find . -name 'google-play-services*.properties') | awk -F= '{print $2}'`
-cd $DIR_JAVADOC
-zip -qr $DIR_LIBPROJECT/google-play-services-jar-7-javadoc.jar .
-cd $DIR_LIBPROJECT
+DIR_JAVADOC="$(cat $(find . -name 'google-play-services*.properties') | awk -F= '{print $2}')"
+cd "$DIR_JAVADOC"
+zip -qr "$DIR_LIBPROJECT/google-play-services-jar-7-javadoc.jar" .
+cd "$DIR_LIBPROJECT"
 
 # install locally
 mvn org.apache.maven.plugins:maven-install-plugin:2.4:install-file \
