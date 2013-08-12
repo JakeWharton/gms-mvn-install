@@ -15,7 +15,7 @@ a problem for users of artifact repositories.
 If you use Maven, you can do the following in order to depend on Google Play Services as
 a library project:
 
- 1. Copy the `gms-mvn-install.sh` script into the `google-play-services_lib/` folder inside of your SDK.
+ 1. Copy the `gms-mvn-install.sh` script into the `extras/google/google_play_services/libproject/google-play-services_lib` folder inside of your SDK.
  2. Execute `./gms-mvn-install.sh` which will install the project into your local Maven repository.
     If you want to deploy the artifacts to a remote repository then execute
     `./gms-mvn-install.sh repo-id repo-url`.
