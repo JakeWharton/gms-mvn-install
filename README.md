@@ -1,5 +1,10 @@
+# Deprecated
+
+The [Gradle build system][1] should be used moving forward. This script will not be maintained.
+
+
 Maven + Google Play Services
-============================
+----------------------------
 
 The recently released version of Google Play Services presents itself as a library
 project with string and attribute resources coupled with a `.jar` in the `libs/` folder
@@ -30,3 +35,6 @@ Once completed you can depend on this library project with the following depende
   <type>apklib</type>
 </dependency>
 ```
+
+
+ [1]: http://tools.android.com/tech-docs/new-build-system/user-guide
