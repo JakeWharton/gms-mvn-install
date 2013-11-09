@@ -73,7 +73,7 @@ cat > pom.xml <<EOF
       <plugin>
         <groupId>com.jayway.maven.plugins.android.generation2</groupId>
         <artifactId>android-maven-plugin</artifactId>
-        <version>3.6.0</version>
+        <version>3.8.0</version>
         <extensions>true</extensions>
         <configuration>
           <sdk>
